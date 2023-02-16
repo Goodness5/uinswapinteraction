@@ -79,9 +79,13 @@ async function main() {
 
   const holderBalanceAfterETH = await DaiContract.balanceOf(DAIHolder);
   console.log(`Dai balance After ETH${holderBalanceAfterETH}`);
+  
 
 
-  const ethfortoken = await Uniswap.connect(impersonatedSigner).swapETHForTokens(
+
+  const ETHbalbefore = await ethers.provider.getBalance(DAIHolder);
+  console.log(`ETHBalance before ${ETHbalbefore}`);
+  const ethfortoken = await Uniswap.connect(impersonatedSigner).swapETHForExactTokens(
     20,
     paths,
     DAIHolder,
@@ -89,6 +93,9 @@ async function main() {
   );
 
   console.log(ethfortoken);
+
+  const ETHbalafter = await ethers.provider.getBalance(DAIHolder);
+  console.log(`ETHBalance before ${ETHbalafter}`);
 //   function swapETHForExactTokens(uint amountOut, address[] calldata path, address to, uint deadline)
 //         external
 //         payable
