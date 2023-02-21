@@ -14,6 +14,8 @@ async function main() {
 
   const paths = [DAI, "0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0", UNI];
   const path2 = ["0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", DAI];
+
+  const path3 = ["0x748dE14197922c4Ae258c7939C7739f3ff1db573", DAI];
   let time = 1676588399;
 
   const amountToSwap = await ethers.utils.parseEther("100");
@@ -82,20 +84,24 @@ async function main() {
   
 
 
+  let time2 = 1976588399;
+  const amount = await BigNumber.from(0.1);
+  console.log(amount);
+  await DaiContract.connect(impersonatedSigner).approve(ROUTER, 10000000000000000000000)
 
   const ETHbalbefore = await ethers.provider.getBalance(DAIHolder);
   console.log(`ETHBalance before ${ETHbalbefore}`);
-  const ethfortoken = await Uniswap.connect(impersonatedSigner).swapETHForExactTokens(
-    20,
-    paths,
+  await Uniswap.connect(impersonatedSigner).swapETHForExactTokens(
+    amount,
+    path2,
     DAIHolder,
-    time
+    time2,
   );
 
-  console.log(ethfortoken);
+//   console.log(ethfortoken);
 
-  const ETHbalafter = await ethers.provider.getBalance(DAIHolder);
-  console.log(`ETHBalance before ${ETHbalafter}`);
+//   const ETHbalafter = await ethers.provider.getBalance(DAIHolder);
+//   console.log(`ETHBalance before ${ETHbalafter}`);
 //   function swapETHForExactTokens(uint amountOut, address[] calldata path, address to, uint deadline)
 //         external
 //         payable
